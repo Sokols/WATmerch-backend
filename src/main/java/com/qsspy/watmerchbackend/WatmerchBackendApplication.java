@@ -2,6 +2,8 @@ package com.qsspy.watmerchbackend;
 
 import com.qsspy.watmerchbackend.entity.*;
 import com.qsspy.watmerchbackend.exception.register.RegisterException;
+import com.qsspy.watmerchbackend.repository.CategoryRepository;
+import com.qsspy.watmerchbackend.repository.RoleRepository;
 import com.qsspy.watmerchbackend.service.ProductService;
 import com.qsspy.watmerchbackend.service.UserService;
 import org.springframework.boot.SpringApplication;
@@ -32,6 +34,11 @@ public class WatmerchBackendApplication {
 
 		UserService userService = app.getBean(UserService.class);
 		ProductService productService = app.getBean(ProductService.class);
+		RoleRepository roleRepository = app.getBean(RoleRepository.class);
+		CategoryRepository categoryRepository = app.getBean(CategoryRepository.class);
+
+		initRoles(roleRepository);
+		initCategories(categoryRepository);
 
 		initUser(userService);
 		initEmployee(userService);
@@ -40,6 +47,28 @@ public class WatmerchBackendApplication {
 		initProducts(productService);
 
 		LOGGER.info("Initial MySQL Data created succesfully!");
+	}
+
+	private static void initCategories(CategoryRepository categoryRepository) {
+
+		categoryRepository.saveAll(
+				Arrays.asList(
+						new Category("Kubki"),
+						new Category("Bluzy"),
+						new Category("Koszulki")
+				)
+		);
+	}
+
+	private static void initRoles(RoleRepository roleRepository) {
+
+		roleRepository.saveAll(
+				Arrays.asList(
+						new Role(Role.RoleType.USER),
+						new Role(Role.RoleType.EMPLOYEE),
+						new Role(Role.RoleType.ADMIN)
+				)
+		);
 	}
 
 	private static void initProducts(ProductService productService) throws IOException {

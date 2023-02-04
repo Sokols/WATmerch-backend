@@ -12,6 +12,7 @@ public class GlobalControllerAdvice {
     @ExceptionHandler
     public ResponseEntity<HttpErrorResponseModel> handleException(Exception exc) {
 
+
         HttpErrorResponseModel model = new HttpErrorResponseModel();
 
         model.setStatusCode(HttpStatus.NOT_ACCEPTABLE.value());

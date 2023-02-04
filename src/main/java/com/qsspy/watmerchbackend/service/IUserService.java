@@ -1,6 +1,7 @@
 package com.qsspy.watmerchbackend.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.qsspy.watmerchbackend.entity.Address;
 import com.qsspy.watmerchbackend.entity.ShopUser;
 import com.qsspy.watmerchbackend.entity.ShopUserDetails;
 import com.qsspy.watmerchbackend.exception.login.UserNotFoundException;
@@ -20,5 +21,7 @@ public interface IUserService {
 
     ShopUserDetails editUserDetails(ShopUserDetails details, String authString);
     ShopUser editUser(Map<String,String> parameters, long Id) throws JsonProcessingException;
+
+    Address editUserAddress(boolean isAddressShipping, Address address, String authString);
     void deleteUser(long id);
 }

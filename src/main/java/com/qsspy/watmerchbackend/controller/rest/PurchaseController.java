@@ -23,12 +23,11 @@ public class PurchaseController {
                           "Jeżeli zostanie podany nagłówek 'Authorization' zakup będzie skorelowany z użytkownikiem." +
                           "Podanie pola 'user' może być całkowicie pominięte")
     @PostMapping("/buy")
-    public String makePurchase(
+    public void makePurchase(
             @RequestHeader(name = "Authorization", required = false) String authString,
             @ApiParam(name = "Obiekt zakupu") @RequestBody Purchase purchase) throws LoginException {
 
         purchaseService.makePurchase(purchase, authString);
-        return "Purchase completed!";
     }
 
     @ApiOperation(value = "Pobranie strony listy zakupów",

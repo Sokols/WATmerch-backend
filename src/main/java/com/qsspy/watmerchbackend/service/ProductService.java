@@ -9,14 +9,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
+@Transactional
 public class ProductService implements IProductService {
 
-    private CategoryRepository categoryRepository;
-    private ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
     public ProductService(CategoryRepository categoryRepository, ProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
@@ -24,6 +28,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Category> getCategories() {
 
         return categoryRepository.findAll();
@@ -35,6 +40,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<Product> getProducts(int page, int size, Integer categoryId, Boolean extended, Boolean detailed, String namePart) {
 
         Sort sort = Sort.by(Sort.Direction.ASC, "name");
@@ -57,6 +63,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Product getProduct(String barcode) {
         return productRepository.findById(barcode).get();
     }
@@ -65,5 +72,44 @@ public class ProductService implements IProductService {
     public Product postProduct(Product product) {
 
         return productRepository.save(product);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Product> getRandomProducts(int productCount, Boolean extended, Boolean detailed) {
+
+        if(productCount<1) {
+            throw new IllegalArgumentException("Product count can't be less than 1");
+        }
+
+        List<String> barcodes = productRepository.getBarcodes();
+
+        List<String> randomBarcodes = new ArrayList<>();
+
+        if(barcodes.size() <= productCount) {
+            randomBarcodes = barcodes;
+        } else {
+            Random rand = new Random();
+
+            for(int i=0;i<productCount;i++) {
+                randomBarcodes.add(barcodes.remove(rand.nextInt(barcodes.size())));
+            }
+        }
+
+        List<Product> products = new ArrayList<>();
+        for(String barcode : randomBarcodes) {
+            Product product = productRepository.findById(barcode).get();
+
+            if(!extended) {
+                product.setBasicDetails(null);
+            }
+            if(!detailed) {
+                product.setDetails(null);
+            }
+
+            products.add(product);
+        }
+
+        return products;
     }
 }

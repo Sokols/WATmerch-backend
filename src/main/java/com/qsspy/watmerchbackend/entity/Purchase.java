@@ -1,7 +1,9 @@
 package com.qsspy.watmerchbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,7 +11,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "purchase")
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
 public class Purchase {
 
     @Id
@@ -42,4 +46,10 @@ public class Purchase {
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "purchase_id", referencedColumnName = "id")
     private List<OrderProduct> orderProducts;
+
+    public Purchase(Date purchaseDate, boolean isFinished, boolean isPaid) {
+        this.purchaseDate = purchaseDate;
+        this.isFinished = isFinished;
+        this.isPaid = isPaid;
+    }
 }

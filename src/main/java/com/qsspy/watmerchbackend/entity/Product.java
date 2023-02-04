@@ -1,13 +1,17 @@
 package com.qsspy.watmerchbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "product")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Product {
 
     @Id
@@ -36,4 +40,11 @@ public class Product {
     @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "details_id",referencedColumnName = "id", nullable = false)
     private ProductDetails details;
+
+    public Product(String barcode, String name, float price, float vat) {
+        this.barcode = barcode;
+        this.name = name;
+        this.price = price;
+        this.vat = vat;
+    }
 }

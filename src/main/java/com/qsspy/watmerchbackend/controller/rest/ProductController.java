@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class ProductController {
 
-    private IProductService productService;
+    private final IProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -65,5 +65,14 @@ public class ProductController {
     public Product postProduct(@RequestBody Product product) {
 
         return productService.postProduct(product);
+    }
+
+    @GetMapping("products/randomProducts")
+    public List<Product> getRandomProducts(
+            @RequestParam(defaultValue = "false") Boolean extended,
+            @RequestParam(defaultValue = "false") Boolean detailed,
+            @RequestParam(defaultValue = "5") int count
+    ) {
+        return productService.getRandomProducts(count,extended,detailed);
     }
 }

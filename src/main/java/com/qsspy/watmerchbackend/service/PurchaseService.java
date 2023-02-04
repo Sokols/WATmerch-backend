@@ -5,7 +5,6 @@ import com.qsspy.watmerchbackend.entity.Purchase;
 import com.qsspy.watmerchbackend.entity.ShopUser;
 import com.qsspy.watmerchbackend.exception.login.LoginException;
 import com.qsspy.watmerchbackend.model.UserAndPasswordModel;
-import com.qsspy.watmerchbackend.repository.OrderProductRepository;
 import com.qsspy.watmerchbackend.repository.PurchaseRepository;
 import com.qsspy.watmerchbackend.repository.UserRepository;
 import org.springframework.data.domain.Page;
@@ -14,20 +13,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class PurchaseService implements IPurchaseService {
 
-    private PurchaseRepository purchaseRepository;
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-    private OrderProductRepository orderProductRepository;
+    private final PurchaseRepository purchaseRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public PurchaseService(PurchaseRepository purchaseRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, OrderProductRepository orderProductRepository) {
+    public PurchaseService(PurchaseRepository purchaseRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.purchaseRepository = purchaseRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.orderProductRepository = orderProductRepository;
     }
 
     @Override
@@ -51,6 +50,7 @@ public class PurchaseService implements IPurchaseService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Page<Purchase> getPurchases(String authString, Integer pageSize, Integer pageNumber) {
 
         Sort sort = Sort.by(Sort.Direction.DESC,"purchaseDate");

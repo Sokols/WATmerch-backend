@@ -1,12 +1,14 @@
 package com.qsspy.watmerchbackend.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "role")
 @Data
+@NoArgsConstructor
 public class Role {
 
     public enum RoleType {
@@ -23,4 +25,8 @@ public class Role {
     @Column(name = "name", nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
     private RoleType name;
+
+    public Role(RoleType name) {
+        this.name = name;
+    }
 }

@@ -1,0 +1,19 @@
+Adres do połączenia :
+
+ws://localhost:8081/chat
+
+Jak działa czat :
+
+Na początku trzeba wygenerować UUID (w Javie - UUID.randomUUID())
+Następnie sybskrypcja kanału:
+
+ściezka do subskrypcji : "/queue/support-${UUID}"
+
+Ciało wiadomości :
+{
+    senderId: ${UUID},
+    name: "sender Name",
+    message: "message"
+}
+
+Następnie server wysyła zwrotnie wysłaną wiadomość i odpowiedź (dwie wiadomości do subskrybowanego kanału)

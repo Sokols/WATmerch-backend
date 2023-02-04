@@ -1,14 +1,18 @@
 package com.qsspy.watmerchbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonMerge;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "user")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class ShopUser {
 
     @Id
@@ -37,8 +41,7 @@ public class ShopUser {
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;
 
-    @JsonMerge
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL})
     private List<CreditCard> creditCards;
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -48,4 +51,11 @@ public class ShopUser {
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "billing_address_id", referencedColumnName = "id")
     private Address billingAddress;
+
+    public ShopUser(String username, String password, String email, boolean enabled) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.enabled = enabled;
+    }
 }

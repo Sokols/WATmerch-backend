@@ -15,4 +15,6 @@ public interface IProductService {
     Product getProduct(String barcode);
     Product postProduct(Product product);
 
+    List<Product> getRandomProducts(int productCount, Boolean extended, Boolean detailed);
+
 }

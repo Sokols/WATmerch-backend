@@ -314,3 +314,49 @@ Parametry :
     - cardId - Id karty kredytowej do usunięcia
 
 Wymagane jest podanie nagłowka "Authorization" by zczytac uzytkownika dla ktorego usuwa sie dane
+
+    14. Edycja adresu dostawy użytkownika
+
+Dostęp : Zalogowany
+
+Żądanie : PUT /api/editUserAddress/shipping
+
+Parametry : brak
+
+Przykładowe ciało :
+
+{
+  "city": "1",
+  "country": "2",
+  "firstName": "3",
+  "lastName": "4",
+  "phoneNumber": "5",
+  "postalCode": "6",
+  "state": "7",
+  "street": "8"
+}
+
+Wymagane jest podanie nagłowka "Authorization" by zczytac uzytkownika dla ktorego usuwa sie dane
+
+    15. Edycja adresu rozliczeniowego użytkownika
+
+Dostęp : Zalogowany
+
+Żądanie : PUT /api/editUserAddress/billing
+
+Parametry : brak
+
+Przykładowe ciało :
+
+{
+  "city": "1",
+  "country": "2",
+  "firstName": "3",
+  "lastName": "4",
+  "phoneNumber": "5",
+  "postalCode": "6",
+  "state": "7",
+  "street": "8"
+}
+
+Wymagane jest podanie nagłowka "Authorization" by zczytac uzytkownika dla ktorego usuwa sie dane

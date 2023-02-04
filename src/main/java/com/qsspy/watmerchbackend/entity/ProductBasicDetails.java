@@ -14,7 +14,7 @@ public class ProductBasicDetails {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "short_description", nullable = false)
+    @Column(name = "short_description")
     private String shortDescription;
 
     @Column(name = "logo_image")

@@ -17,6 +17,6 @@ public class ProductDetails {
     @Column(name = "long_description")
     private String longDescription;
 
-    @Column(name = "quantity_in_stock", nullable = false)
+    @Column(name = "quantity_in_stock")
     private int quantityInStock;
 }

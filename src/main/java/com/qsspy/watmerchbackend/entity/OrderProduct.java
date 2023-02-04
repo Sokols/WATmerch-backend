@@ -1,12 +1,16 @@
 package com.qsspy.watmerchbackend.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "order_product")
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class OrderProduct {
 
     @Id
@@ -21,4 +25,8 @@ public class OrderProduct {
     @JoinColumn(name = "product_barcode", referencedColumnName = "barcode")
     private Product product;
 
+    public OrderProduct(int quantity, Product product) {
+        this.quantity = quantity;
+        this.product = product;
+    }
 }

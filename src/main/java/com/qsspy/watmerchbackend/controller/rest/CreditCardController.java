@@ -19,7 +19,7 @@ public class CreditCardController {
     }
 
     @ApiOperation(value = "Dodaj kartę użytkownikowi",
-                  notes = "Dodaje kartę użytkownikowi, który jest identyfikowany przez nagłowek 'Authorization'")
+            notes = "Dodaje kartę użytkownikowi, który jest identyfikowany przez nagłowek 'Authorization'")
     @PostMapping("/creditCards")
     public CreditCard postCreditCard(
             @ApiParam(name = "Dane karty kredytowej") @RequestBody CreditCard creditCard,
@@ -29,7 +29,7 @@ public class CreditCardController {
     }
 
     @ApiOperation(value = "Pobierz karty kredytowe użytkownika",
-                  notes = "Pobiera karty kredytowe użytkownika, który jest identyfikowany przez nagłowek 'Authorization'")
+            notes = "Pobiera karty kredytowe użytkownika, który jest identyfikowany przez nagłowek 'Authorization'")
     @GetMapping("/creditCards")
     public List<CreditCard> getCreditCards(
             @RequestHeader(name = "Authorization") String authString
@@ -38,7 +38,7 @@ public class CreditCardController {
     }
 
     @ApiOperation(value = "Usuń kartę użytkownikowi",
-                  notes = "Usuwa kartę użytkownikowi, który jest identyfikowany przez nagłowek 'Authorization'")
+            notes = "Usuwa kartę użytkownikowi, który jest identyfikowany przez nagłowek 'Authorization'")
     @DeleteMapping("/creditCards")
     public String deleteCreditCard(
             @ApiParam(name = "Id karty kredytowej") @RequestParam Long cardId

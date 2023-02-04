@@ -11,9 +11,9 @@
 
     <script src="/js/userListForm.js"></script>
     <script>
-        function deleteAlert() {
+        function deleteAlert(id) {
             if (confirm("Jesteś pewny/a, że chcesz usunąć tego użytkownika?")) {
-                document.getElementById("deleteForm").submit()
+                document.getElementById("deleteForm" + id).submit()
             }
         }
     </script>
@@ -54,14 +54,14 @@
             </thead>
             <tbody>
                 <tr th:each="user : ${users}">
-                    <th scope="row" th:text="${user.id}"></th>
+                    <td scope="row" th:text="${user.id}"></td>
                     <td th:text="${user.username}"></td>
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.role.name.name()}"></td>
                     <td class="d-flex flex-wrap" >
                         <a th:href="@{'/crm/userDetails/' + ${user.id}}" class="btn btn-success">Edytuj</a>
-                        <form th:action="@{'/crm/users/delete/' + ${user.id}}" method="POST" id="deleteForm">
-                            <a onclick="deleteAlert()" class="btn btn-danger" style="color: white">Usuń</a>
+                        <form th:action="@{'/crm/users/delete/' + ${user.id}}" method="POST" th:id="deleteForm + ${user.id}">
+                            <a th:onclick="'deleteAlert(' + ${user.id} + ')'" class="btn btn-danger" style="color: white">Usuń</a>
                         </form>
                     </td>
                 </tr>

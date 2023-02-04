@@ -1,4 +1,4 @@
-package com.qsspy.watmerchbackend.security;
+package com.qsspy.watmerchbackend.configuration;
 
 import com.qsspy.watmerchbackend.entity.ShopUser;
 import org.springframework.security.core.GrantedAuthority;

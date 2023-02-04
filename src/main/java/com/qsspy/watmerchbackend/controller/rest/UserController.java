@@ -1,6 +1,7 @@
 package com.qsspy.watmerchbackend.controller.rest;
 
 import com.jayway.jsonpath.InvalidJsonException;
+import com.qsspy.watmerchbackend.entity.Address;
 import com.qsspy.watmerchbackend.entity.ShopUser;
 import com.qsspy.watmerchbackend.entity.ShopUserDetails;
 import com.qsspy.watmerchbackend.exception.login.UserNotFoundException;
@@ -52,5 +53,25 @@ public class UserController {
             @ApiParam(name = "Szcegóły użytkownika") @RequestBody ShopUserDetails details
     ) {
         return userService.editUserDetails(details, authString);
+    }
+
+    @ApiOperation(value = "Edycja adresu dostawy użytkownika",
+            notes = "Edycja adresu dostawy użytkownika identyfikowanego z nagłowka 'Authorization'")
+    @PutMapping("/editUserAddress/shipping")
+    public Address editUserShippingAddress(
+            @RequestHeader(name = "Authorization") String authString,
+            @ApiParam(name = "Adres") @RequestBody Address address
+    ) {
+        return userService.editUserAddress(true,address,authString);
+    }
+
+    @ApiOperation(value = "Edycja adresu rozliczeniowy użytkownika",
+            notes = "Edycja adresu rozliczeniowego użytkownika identyfikowanego z nagłowka 'Authorization'")
+    @PutMapping("/editUserAddress/billing")
+    public Address editUserBillingAddress(
+            @RequestHeader(name = "Authorization") String authString,
+            @ApiParam(name = "Adres") @RequestBody Address address
+    ) {
+        return userService.editUserAddress(false,address,authString);
     }
 }

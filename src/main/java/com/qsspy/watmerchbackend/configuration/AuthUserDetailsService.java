@@ -1,8 +1,7 @@
-package com.qsspy.watmerchbackend.service;
+package com.qsspy.watmerchbackend.configuration;
 
 import com.qsspy.watmerchbackend.entity.ShopUser;
 import com.qsspy.watmerchbackend.repository.UserRepository;
-import com.qsspy.watmerchbackend.security.AuthUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
